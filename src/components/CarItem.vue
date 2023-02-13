@@ -2,8 +2,10 @@
 <div class="post">
    <div>
     <div>{{car.id}}</div>
-    <div><b>Марка: </b>{{ car.title }}</div>
-    <div><b>Модель: </b>{{ car.body }}</div>
+    <div><b>Гос.номер: </b>{{ car.name }}</div>
+    <div><b>Тип: </b>{{ car.email }}</div>
+    <div><b>Статус: </b>{{ car.body }}</div>
+
    </div>
    <div class="post__btns">
       <my-button

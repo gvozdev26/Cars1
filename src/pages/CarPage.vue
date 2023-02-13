@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Список транспортных средств</h1>
-        <car-input
+        <my-input
         v-model="carSearchQuery"
         placeholder="Поиск..."
         />
@@ -27,19 +27,6 @@
         v-if="!isCarsLoading"
         />
         <div v-else>Идет загрузка...</div>   
-        <div class="car__page__wrapper">
-            <div 
-            v-for="pageNumber in totalPages" 
-            :key="pageNumber"
-            class="carPage"
-            :class="{
-                'current__car__page': page === pageNumber
-            }"
-            @click="changePage(pageNumber)"
-            >
-            {{pageNumber}}
-        </div>
-    </div> 
 </div>
 </template>
 
@@ -64,8 +51,9 @@
        limit: 10,
        totalPages: 0,
        carSortOptions: [
-        {value:'title', name: 'По марке'},
-        {value:'body', name: 'По модели'},
+        {value:'name', name: 'По гос.номеру'},
+        {value:'email', name: 'По типу'},
+        {value:'body', name: 'По статусу'}
 
        ]
         }
@@ -81,14 +69,10 @@
             showCarDialog() {
                 this.carDialogVisible = true;
             },
-            changePage(pageNumber){
-                this.page = pageNumber
-                this.fetchCars()
-            },
             async fetchCars() {
                 try {
                     this.isCarsLoading = true;                
-                    const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+                    const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
                         params: {
                             _page: this.page,
                             _limit:this.limit
@@ -104,7 +88,6 @@
             }
         },
         mounted() {
-            this.fetchCars();
         },
         computed: {
             sortedCars() {
@@ -112,7 +95,7 @@
                    car1[this.carSelectedSort]?.localeCompare(car2[this.carSelectedSort]))
             },
             sortedAndSearchedCars() {
-                return this.sortedCars.filter(car => car.title.toLowerCase().includes(this.carSearchQuery.toLowerCase()))
+                return this.sortedCars.filter(car => car.name.toLowerCase().includes(this.carSearchQuery.toLowerCase()))
             }
           },
         }     

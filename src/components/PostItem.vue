@@ -2,8 +2,7 @@
     <div class="post">
         <div>
         <div>{{ post.id }}</div>
-        <div><strong>Гос.номер: </strong> {{post.name}}</div> 
-        <div><strong>ФИО водителя: </strong> {{post.email}}</div> 
+        <div><strong>ФИО водителя: </strong> {{post.title}}</div> 
         <div><strong>Статус: </strong> {{post.body}}</div>
     </div> 
         <div class="post__btns">

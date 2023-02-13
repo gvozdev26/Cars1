@@ -2,14 +2,19 @@
         <form @submit.prevent>
             <h4>Добавление ТС</h4>
             <my-input 
-            v-model="car.title"
+            v-model="car.name"
             type="text" 
-            placeholder="Название"
+            placeholder="Гос.номер"
+            />
+            <my-input 
+            v-model="car.email" 
+            type="text" 
+            placeholder="Тип"
             />
             <my-input 
             v-model="car.body" 
             type="text" 
-            placeholder="Описание"
+            placeholder="Статус"
             />
             <my-button 
             @click="createCar" 
@@ -24,7 +29,8 @@
         data() {
             return {
                 car: {
-                    title: '',
+                    name: '',
+                    email: '',
                     body: ''
                 }
             }
@@ -34,7 +40,8 @@
             this.car.id = Date.now();
             this.$emit('create', this.car)
             this.car = {
-                title: '',
+                name: '',
+                email: '',
                 body: ''
                }
             }

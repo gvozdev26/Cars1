@@ -28,7 +28,7 @@
         v-if="!isPostsLoading"
         />
         <div v-else>Идет загрузка...</div>
-        <div ref="observer" class="observer"></div>
+        <div ref="observer"></div>
         </div>
        </template>
     
@@ -57,10 +57,8 @@
                 limit: 10,
                 totalPages: 0,
                 sortOptions: [
-                    {value:'name', name: 'По гос.номеру'},
+                    {value:'title', name: 'По ФИО'},
                     {value:'body', name: 'По статусу'},
-                    {value:'email', name: 'По ФИО водителя'}
-
                     ]
                 }
             },
@@ -78,7 +76,7 @@
                     async fetchPosts(){
                     try {
                         this.isPostsLoading=true;
-                        const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
+                        const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
                             params: {
                                 _page: this.page, 
                                 _limit: this.limit
@@ -95,7 +93,7 @@
                    async loadMorePosts(){
                     try {
                         this.page +=1;
-                        const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
+                        const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
                             params: {
                                 _page: this.page, 
                                 _limit: this.limit
@@ -129,11 +127,10 @@
                          post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
                   },
                   sortedAndSearchedPosts() {
-                    return this.sortedPosts.filter(post => post.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+                    return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
                   }
                 },
                 watch: {
-                  
                 }
             }
     </script>
@@ -163,8 +160,4 @@
     .current-page {
         border: 2px solid teal;
     }
-    .observer {
-        height: 30px;
-        background: ghostwhite;
-    }
-    </style>    
+</style>    

@@ -2,12 +2,7 @@
     <form @submit.prevent>
         <h4>Добавить водителя</h4>
         <my-input 
-         v-model="post.name"
-         type="text" 
-         placeholder="Гос.номер"
-         />
-         <my-input 
-         v-model="post.email"
+         v-model="post.title"
          type="text" 
          placeholder="ФИО водителя"
          />

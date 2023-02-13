@@ -11,7 +11,7 @@
         </transition-group>
       </div>
     <h2 v-else style="color:red">
-      Машин нет
+      Список водителей пуст
     </h2>         
 </template>
 
