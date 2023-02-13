@@ -26,7 +26,8 @@
         @remove="removeCar"
         v-if="!isCarsLoading"
         />
-        <div v-else>Идет загрузка...</div>   
+        <div v-else>Идет загрузка...</div>
+        <div ref="observer"></div>   
 </div>
 </template>
 
@@ -69,36 +70,66 @@
             showCarDialog() {
                 this.carDialogVisible = true;
             },
-            async fetchCars() {
-                try {
-                    this.isCarsLoading = true;                
-                    const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
-                        params: {
-                            _page: this.page,
-                            _limit:this.limit
+                async fetchCars(){
+                    try {
+                        this.isCarsLoading=true;
+                        const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
+                            params: {
+                                _page: this.page, 
+                                _limit: this.limit
+                            }
+                        });
+                        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+                        this.cars = response.data;                                      
+                        } catch (e) {
+                        alert ('Ошибка')
+                    } finally {
+                        this.isCarsLoading=false;
+                     }
+                   }, 
+                   async loadMoreCars(){
+                    try {
+                        this.page +=1;
+                        const response = await axios.get('https://jsonplaceholder.typicode.com/comments', {
+                            params: {
+                                _page: this.page, 
+                                _limit: this.limit
+                            }
+                        });
+                        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
+                        this.cars = [...this.cars, ...response.data];                                      
+                        } catch (e) {
+                        alert ('Ошибка')
+                    } 
+                   } 
+                },
+                mounted() {
+                    this.fetchCars ();
+                    this.$refs.observer
+                    const options = {
+                        rootMargin: '0px',
+                        threshold: 1.0
+                    }
+                    const callback = (entries, observer) => {
+                        if (entries[0].isIntersecting && this.page < this.totalPages) {
+                            this.loadMoreCars()
                         }
-                    }); 
-                    this.totalPages = Math.ceil (response.headers['x-total-count'] / this.limit)
-                    this.cars = response.data;
-                } catch (e) {
-                    alert ('Ошибка')
-                } finally {
-                    this.isCarsLoading = false;
+                    };
+                    const observer = new IntersectionObserver(callback, options);
+                    observer.observe(this.$refs.observer);
+                    },
+                computed: {
+                  sortedCars () {
+                    return [...this.cars].sort((car1, car2) =>
+                         car1[this.carSelectedSort]?.localeCompare(car2[this.carSelectedSort]))
+                  },
+                  sortedAndSearchedCars() {
+                    return this.sortedCars.filter(car => car.name.toLowerCase().includes(this.carSearchQuery.toLowerCase()))
+                  }
+                },
+                watch: {
                 }
-            }
-        },
-        mounted() {
-        },
-        computed: {
-            sortedCars() {
-                return [...this.cars].sort((car1, car2) => 
-                   car1[this.carSelectedSort]?.localeCompare(car2[this.carSelectedSort]))
-            },
-            sortedAndSearchedCars() {
-                return this.sortedCars.filter(car => car.name.toLowerCase().includes(this.carSearchQuery.toLowerCase()))
-            }
-          },
-        }     
+            }    
 </script>
 
 <style>
@@ -107,12 +138,5 @@
     padding: 10px;
     margin-left: 2px;
 
-}
-.car__page__wrapper {
-    display: flex;
-    margin-top: 15px;
-}
-.current__car__page{
-    border: 3px solid black;
 }
 </style>
