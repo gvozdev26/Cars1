@@ -61,7 +61,7 @@
          },
          methods: {
           createCar(car) {
-            this.cars.push(car);
+            this.cars.unshift(car);
             this.carDialogVisible = false;
             },
             removeCar(car) {
