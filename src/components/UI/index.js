@@ -1,9 +1,13 @@
-import CarButton from "@/components/UI/CarButton";
 import CarInput from "@/components/UI/CarInput";
 import CarDialog from "@/components/UI/CarDialog";
+import MyButton from '@/components/UI/MyButton';
+import MyInput from '@/components/UI/MyInput';
+import MyDialog from '@/components/UI/MyDialog';
 
 export default [
-    CarButton, 
     CarInput,
-    CarDialog
+    CarDialog,
+    MyButton,
+    MyInput,
+    MyDialog,
 ]

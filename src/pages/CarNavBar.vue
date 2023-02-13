@@ -1,11 +1,21 @@
 <template>
     <div class="navbar">
-        <div @click="$router.push('/')">Тачки</div>
+        <div @click="$router.push('/')">Реактивная улитка</div>
         <div class="navbar__btns">
-                <car-button @click="$router.push('/cars')">
-                    Тачки
-                </car-button>
+            <my-button @click="$router.push('/cars')">
+                Транспортные средства
+            </my-button>
         </div>
+        <div class="navbar__btns">
+            <my-button @click="$router.push('/posts')">
+                Водители
+            </my-button>
+    </div>
+    <div class="navbar__btns">
+        <my-button @click="$router.push('/about')">
+            О нас
+        </my-button>
+</div>
     </div>
 </template>
 
@@ -24,6 +34,6 @@ align-items: center;
 padding: 0px 15px;
 }
 .navbar__btns{
-    margin-left: auto;
+    margin-left: 5px;
 }
 </style>

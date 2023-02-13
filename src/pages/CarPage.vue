@@ -5,22 +5,22 @@
         v-model="carSearchQuery"
         placeholder="Поиск..."
         />
-        <div class="car__app__btns">
-        <car-button 
+        <div class="app__btns">
+        <my-button 
             @click="showCarDialog"
             >
             Добавить ТС
-        </car-button>
-        <car-select
+        </my-button>
+        <my-select
          v-model="carSelectedSort"
          :options="carSortOptions"
         />
         </div>
-        <car-dialog v-model:show="carDialogVisible">
+        <my-dialog v-model:show="carDialogVisible">
             <car-form
             @create="createCar"
             />
-        </car-dialog>
+        </my-dialog>
         <car-list 
         :cars="sortedAndSearchedCars"
         @remove="removeCar"
@@ -46,13 +46,12 @@
 <script>
     import CarForm from "@/components/CarForm";
     import CarList from "@/components/CarList";
-    import CarButton from "@/components/UI/CarButton";
     import axios from 'axios';
-    import CarSelect from "@/components/UI/CarSelect";
+    import MySelect from "@/components/UI/MySelect";
 
     export default {
         components: {
-            CarForm, CarList, CarButton, CarSelect
+            CarForm, CarList, MySelect
         },
         data() {
          return {   
@@ -120,11 +119,6 @@
 </script>
 
 <style>
-.car__app__btns {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-}
 .carPage {
     border: 1px solid teal;
     padding: 10px;

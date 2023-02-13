@@ -6,16 +6,16 @@
     <div><b>Модель: </b>{{ car.body }}</div>
    </div>
    <div class="post__btns">
-      <car-button
+      <my-button
       @click="$router.push(`/cars/${car.id}`)"
       >
-       Подробнее
-       </car-button>
-        <car-button style="margin-left: 5px;"
+       Подробнее...
+       </my-button>
+        <my-button style="margin-left: 5px;"
         @click="$emit('remove', car)"
         >
-         Удалить
-         </car-button>
+         Удалить...
+         </my-button>
      </div>
 </div>
 </template>
@@ -31,7 +31,7 @@
     }
 </script>
 
-<style scoped>
+<style>
 .post {
     margin-top: 15px;
     padding: 15px;

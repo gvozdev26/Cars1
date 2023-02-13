@@ -1,22 +1,21 @@
 <template>
         <form @submit.prevent>
             <h4>Добавление ТС</h4>
-            <car-input 
+            <my-input 
             v-model="car.title"
             type="text" 
             placeholder="Название"
             />
-            <car-input 
+            <my-input 
             v-model="car.body" 
             type="text" 
             placeholder="Описание"
             />
-            <car-button 
-            style="align-self: flex-end; margin-top: 15px;"
+            <my-button 
             @click="createCar" 
-            >
+            style="margin-top: 15px;">
             Добавить
-            </car-button>
+            </my-button>
         </form>
 </template>
 
